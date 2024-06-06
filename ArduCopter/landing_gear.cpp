@@ -5,6 +5,15 @@
 // Run landing gear controller at 10Hz
 void Copter::landinggear_update()
 {
+            //ACECORE
+    if (!copter.motors->armed()) {                                              //If copter is disarmed, the landing gear will deploy and stay deployed
+        if (hal.rcin->read(0) <= 1800) {                                        //Only works when first joystick is not high (this way we can test the retract when disarmed)
+            if (hal.rcin->read(1) >= 1200) {                                    //Only works when second joystick is nog low (this way we can test the retract when disarmed)
+                copter.landinggear.set_position(AP_LandingGear::LandingGear_Deploy);
+            }
+        }
+    }
+    //ACECORE
     // exit immediately if no landing gear output has been enabled
     if (!SRV_Channels::function_assigned(SRV_Channel::k_landing_gear_control)) {
         return;
