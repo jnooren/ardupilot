@@ -18,6 +18,8 @@
 #include <AP_Common/AP_Common.h>
 #include <AP_HAL/AP_HAL.h>
 
+#include <libraries/dsdl_custom/include/dsdl_custom.tulip.protocol.heating.GetMode.h>
+
 #if HAL_ENABLE_DRONECAN_DRIVERS
 #include "AP_DroneCAN.h"
 #include <GCS_MAVLink/GCS.h>
@@ -1964,5 +1966,32 @@ bool AP_DroneCAN::write_aux_frame(AP_HAL::CANFrame &out_frame, const uint64_t ti
     }
     return canard_iface.write_aux_frame(out_frame, timeout_us);
 }
+
+void AP_DroneCAN::request_heater_status(uint8_t node_id)
+{
+    if (_node == nullptr) {
+        return;
+    }
+
+    tulip::protocol::heating::GetMode::Request req;
+
+    auto result = _node->call<tulip::protocol::heating::GetMode>(
+        uavcan::NodeID(node_id),
+        req,
+        [](const uavcan::ServiceCallResult<tulip::protocol::heating::GetMode>& call_result) {
+            if (call_result.isSuccessful()) {
+                const bool heating = call_result.getResponse().heating_mode;
+                ::printf("Heater status received: %s\n", heating ? "ON" : "OFF");
+            } else {
+                ::printf("Failed to receive heater status\n");
+            }
+        }
+    );
+
+    if (!result) {
+        ::printf("Heater status request failed to start\n");
+    }
+}
+
 
 #endif // HAL_NUM_CAN_IFACES

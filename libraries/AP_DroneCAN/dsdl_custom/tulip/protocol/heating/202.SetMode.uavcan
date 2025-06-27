@@ -1,0 +1,12 @@
+#
+# Request
+#
+
+bool heating_mode
+
+---
+#
+# Response
+#
+
+bool success

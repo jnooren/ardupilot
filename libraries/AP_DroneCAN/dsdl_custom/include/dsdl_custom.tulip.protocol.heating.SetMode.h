@@ -1,0 +1,14 @@
+
+
+#pragma once
+#include <dsdl_custom.tulip.protocol.heating.SetMode_req.h>
+#include <dsdl_custom.tulip.protocol.heating.SetMode_res.h>
+
+#define DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_ID 202
+#define DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_SIGNATURE (0x1B6CECDB7E735039ULL)
+
+
+#if defined(__cplusplus) && defined(DRONECAN_CXX_WRAPPERS)
+#include <canard/cxx_wrappers.h>
+SERVICE_MESSAGE_CXX_IFACE(dsdl_custom_tulip_protocol_heating_SetMode, DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_ID, DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_SIGNATURE, DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_REQUEST_MAX_SIZE, DSDL_CUSTOM_TULIP_PROTOCOL_HEATING_SETMODE_RESPONSE_MAX_SIZE);
+#endif
