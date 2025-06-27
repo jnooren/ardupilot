@@ -21,6 +21,10 @@ bool AP_Arming_Copter::run_pre_arm_checks(bool display_failure)
         return true;
     }
 
+    if(AP::dronecan().enabled()){
+        AP::dronecan().request_heater_status(42);
+    }
+
     // check if motor interlock and either Emergency Stop aux switches are used
     // at the same time.  This cannot be allowed.
     bool passed = true;
