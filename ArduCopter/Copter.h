@@ -663,14 +663,14 @@ private:
                              uint8_t &task_count,
                              uint32_t &log_bit) override;
 #if AP_SCRIPTING_ENABLED || AP_EXTERNAL_CONTROL_ENABLED
-#if MODE_GUIDED_ENABLED
     bool set_target_location(const Location& target_loc) override;
+#if MODE_GUIDED_ENABLED
     bool start_takeoff(const float alt) override;
 #endif // MODE_GUIDED_ENABLED
 #endif // AP_SCRIPTING_ENABLED || AP_EXTERNAL_CONTROL_ENABLED
 
 #if AP_SCRIPTING_ENABLED
-#if MODE_GUIDED_ENABLED
+#if MODE_RTL_ENABLED || MODE_LAND_ENABLED
     bool get_target_location(Location& target_loc) override;
     bool update_target_location(const Location &old_loc, const Location &new_loc) override;
     bool set_target_pos_NED(const Vector3f& target_pos, bool use_yaw, float yaw_deg, bool use_yaw_rate, float yaw_rate_degs, bool yaw_relative, bool terrain_alt) override;
@@ -680,8 +680,8 @@ private:
     bool set_target_velaccel_NED(const Vector3f& target_vel, const Vector3f& target_accel, bool use_yaw, float yaw_deg, bool use_yaw_rate, float yaw_rate_degs, bool relative_yaw) override;
     bool set_target_angle_and_climbrate(float roll_deg, float pitch_deg, float yaw_deg, float climb_rate_ms, bool use_yaw_rate, float yaw_rate_degs) override;
     bool set_target_rate_and_throttle(float roll_rate_dps, float pitch_rate_dps, float yaw_rate_dps, float throttle) override;
-
 #endif
+
 #if MODE_CIRCLE_ENABLED
     bool get_circle_radius(float &radius_m) override;
     bool set_circle_rate(float rate_dps) override;
